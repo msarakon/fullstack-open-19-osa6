@@ -1,23 +1,18 @@
 import React from 'react';
 import useField from './hooks/useField'
+import { voteAnecdote, createAnecdote } from './reducers/anecdoteReducer'
 
 const App = ({ store }) => {
   const anecdotes = store.getState()
   const newAnecdote = useField('text')
   
   const vote = (id) => {
-    store.dispatch({
-      type: 'VOTE',
-      data: { id }
-    })
+    store.dispatch(voteAnecdote(id))
   }
 
   const create = (event) => {
     event.preventDefault()
-    store.dispatch({
-      type: 'NEW',
-      data: { anecdote: newAnecdote.input.value }
-    })
+    store.dispatch(createAnecdote(newAnecdote.input.value))
   }
 
   const sort = (a1, a2) => {
