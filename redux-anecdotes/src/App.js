@@ -19,11 +19,16 @@ const App = ({ store }) => {
       data: { anecdote: newAnecdote.input.value }
     })
   }
+
+  const sort = (a1, a2) => {
+    if (a1.votes === a2.votes) return 0
+    else return a1.votes < a2.votes ? 1 : -1
+  }
   
   return (
     <div>
       <h2>Anecdotes</h2>
-      {anecdotes.map(anecdote =>
+      {anecdotes.sort(sort).map(anecdote =>
         <div key={anecdote.id}>
           <div>
             {anecdote.content}
