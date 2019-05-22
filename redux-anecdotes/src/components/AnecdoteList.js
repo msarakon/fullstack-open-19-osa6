@@ -15,10 +15,15 @@ const AnecdoteList = ({ store }) => {
     if (a1.votes === a2.votes) return 0
     else return a1.votes < a2.votes ? 1 : -1
   }
+
+  const filter = (anecdote) => {
+    return anecdote.content.toLowerCase()
+      .includes(store.getState().filter.text.toLowerCase())
+  }
   
   return (
     <div>
-      {anecdotes.sort(sort).map(anecdote =>
+      {anecdotes.filter(filter).sort(sort).map(anecdote =>
         <div key={anecdote.id}>
           <div>
             {anecdote.content}
