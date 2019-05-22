@@ -1,18 +1,12 @@
 import React from 'react';
-import useField from './hooks/useField'
-import { voteAnecdote, createAnecdote } from './reducers/anecdoteReducer'
+import { voteAnecdote } from './reducers/anecdoteReducer'
+import AnecdoteForm from './components/AnecdoteForm'
 
 const App = ({ store }) => {
   const anecdotes = store.getState()
-  const newAnecdote = useField('text')
   
   const vote = (id) => {
     store.dispatch(voteAnecdote(id))
-  }
-
-  const create = (event) => {
-    event.preventDefault()
-    store.dispatch(createAnecdote(newAnecdote.input.value))
   }
 
   const sort = (a1, a2) => {
@@ -35,10 +29,7 @@ const App = ({ store }) => {
         </div>
       )}
       <h2>create new</h2>
-      <form>
-        <div><input {...newAnecdote.input} /></div>
-        <button onClick={create}>create</button>
-      </form>
+      <AnecdoteForm store={store}/>
     </div>
   )
 }
