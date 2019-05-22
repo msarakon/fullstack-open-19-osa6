@@ -1,6 +1,7 @@
 import React from 'react';
 import useField from '../hooks/useField'
 import { createAnecdote } from '../reducers/anecdoteReducer'
+import { setNotification, resetNotification } from '../reducers/notificationReducer'
 
 const AnecdoteForm = ({ store}) => {
   const newAnecdote = useField('text')
@@ -8,6 +9,8 @@ const AnecdoteForm = ({ store}) => {
   const create = (event) => {
     event.preventDefault()
     store.dispatch(createAnecdote(newAnecdote.input.value))
+    store.dispatch(setNotification(`you added "${newAnecdote.input.value}"`))
+    setTimeout(() => store.dispatch(resetNotification()), 5000)
   }
   
   return (

@@ -3,9 +3,20 @@ const initialState = { message: '' }
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_NOTIFICATION':
-      return { ...state, notification: action.message }
+      return { ...state, message: action.data.message }
     default: return state
   }
+}
+
+export const setNotification = (message) => {
+  return {
+    type: 'SET_NOTIFICATION',
+    data: { message: message }
+  }
+}
+
+export const resetNotification = () => {
+  return setNotification('') 
 }
 
 export default reducer
