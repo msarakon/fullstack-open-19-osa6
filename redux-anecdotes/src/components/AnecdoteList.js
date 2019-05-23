@@ -5,7 +5,7 @@ import { setNotification, resetNotification } from '../reducers/notificationRedu
 
 const AnecdoteList = (props) => {
   const vote = (anecdote) => {
-    props.voteAnecdote(anecdote.id)
+    props.voteAnecdote(anecdote)
     props.setNotification(`you voted "${anecdote.content}"`)
     setTimeout(() => resetNotification(), 5000)
   }
