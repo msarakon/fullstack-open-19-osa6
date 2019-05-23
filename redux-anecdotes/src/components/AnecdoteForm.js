@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import useField from '../hooks/useField'
 import { createAnecdote } from '../reducers/anecdoteReducer'
-import { setNotification, resetNotification } from '../reducers/notificationReducer'
+import { setNotification } from '../reducers/notificationReducer'
 
 const AnecdoteForm = (props) => {
   const newAnecdote = useField('text')
@@ -12,7 +12,6 @@ const AnecdoteForm = (props) => {
     const content = newAnecdote.input.value
     props.createAnecdote(newAnecdote.input.value)
     props.setNotification(`you added "${content}"`)
-    setTimeout(() => props.resetNotification(), 5000)
   }
   
   return (
@@ -26,10 +25,6 @@ const AnecdoteForm = (props) => {
   )
 }
 
-const mapDispatchToProps = {
-  createAnecdote,
-  setNotification,
-  resetNotification
-}
+const mapDispatchToProps = { createAnecdote, setNotification }
 
 export default connect(null, mapDispatchToProps)(AnecdoteForm)
