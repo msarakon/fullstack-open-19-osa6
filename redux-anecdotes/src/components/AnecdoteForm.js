@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import anecdoteService from '../services/anecdotes'
 import useField from '../hooks/useField'
 import { createAnecdote } from '../reducers/anecdoteReducer'
 import { setNotification, resetNotification } from '../reducers/notificationReducer'
@@ -7,10 +8,11 @@ import { setNotification, resetNotification } from '../reducers/notificationRedu
 const AnecdoteForm = (props) => {
   const newAnecdote = useField('text')
 
-  const create = (event) => {
+  const create = async (event) => {
     event.preventDefault()
-    props.createAnecdote(newAnecdote.input.value)
-    props.setNotification(`you added "${newAnecdote.input.value}"`)
+    const anecdote = await anecdoteService.createNew(newAnecdote.input.value)
+    props.createAnecdote(anecdote)
+    props.setNotification(`you added "${anecdote.content}"`)
     setTimeout(() => props.resetNotification(), 5000)
   }
   
