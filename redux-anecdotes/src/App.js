@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
-import anecdoteService from './services/anecdotes'
 import { initAnecdotes } from './reducers/anecdoteReducer'
 import AnecdoteList from './components/AnecdoteList'
 import AnecdoteForm from './components/AnecdoteForm'
@@ -11,8 +10,7 @@ const App = (props) => {
   const init = props.initAnecdotes
 
   useEffect(() => {
-    anecdoteService.getAll().then(anecdotes =>
-      init(anecdotes))
+    init()
   }, [init])
 
   return (
