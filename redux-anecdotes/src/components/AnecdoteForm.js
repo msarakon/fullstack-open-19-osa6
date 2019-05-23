@@ -1,16 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import useField from '../hooks/useField'
 import { createAnecdote } from '../reducers/anecdoteReducer'
 import { setNotification, resetNotification } from '../reducers/notificationReducer'
 
-const AnecdoteForm = ({ store}) => {
+const AnecdoteForm = (props) => {
   const newAnecdote = useField('text')
 
   const create = (event) => {
     event.preventDefault()
-    store.dispatch(createAnecdote(newAnecdote.input.value))
-    store.dispatch(setNotification(`you added "${newAnecdote.input.value}"`))
-    setTimeout(() => store.dispatch(resetNotification()), 5000)
+    props.createAnecdote(newAnecdote.input.value)
+    props.setNotification(`you added "${newAnecdote.input.value}"`)
+    setTimeout(() => props.resetNotification(), 5000)
   }
   
   return (
@@ -24,4 +25,10 @@ const AnecdoteForm = ({ store}) => {
   )
 }
 
-export default AnecdoteForm
+const mapDispatchToProps = {
+  createAnecdote,
+  setNotification,
+  resetNotification
+}
+
+export default connect(null, mapDispatchToProps)(AnecdoteForm)
